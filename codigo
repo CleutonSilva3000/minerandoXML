@@ -1,0 +1,54 @@
+<!DOCTYPE>
+<html>
+<head>
+	<title>Noticias UOL</title>
+</head>
+<body>
+     <div id="projeto_lista">
+     	<ul>
+     		<li></li>
+     		<li></li>
+     		<li></li>
+     		<li></li>
+     	</ul>
+     </div>
+
+
+
+<script src="jquery-3.3.1.min.js"></script>
+
+<script type="text/javascript">
+
+function carregaXMLRemoto(){
+  
+  urlxml = "https://github.com/ryganon/linguagens-script/blob/master/projetos/dashboard-lite/tecnologia_uol.xml"
+  $.get(urlxml, function(dados){
+    parserXML(dados);});
+}
+
+/**
+ * Função que processa os dados de um XML
+ * @param {*} xml 
+ */
+function parserXML(xml){
+
+  dadosLista = "";
+  
+  xmlDoc = $.parseXML(xml);
+  $xml = $(xmlDoc);
+  
+  $item = $xml.find("item");
+  
+  $item.each(function(){
+    titulo = $(this).find('title').text();
+    link = $(this).find('link').text();
+    descricao = $(this).find('description').text();
+    dataCriacao = $(this).find('pubDate').text();
+    dadosLista += criaElementoLista([titulo, link, descricao, dataCriacao]);
+  });
+  document.getElementById("projeto_lista").innerHTML = dadosLista;
+}
+</script>
+
+</body>
+</html>
